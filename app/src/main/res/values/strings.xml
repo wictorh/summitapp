@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Summit PCM</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_login">Login</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+
+    <!-- Navigation -->
+    <string name="action_settings">Configurações</string>
+    <string name="action_search">Buscar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Fechar</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_canais">Canais</string>
+    <string name="nav_item_produtos">Produtos</string>
+    <string name="nav_item_atributos">Atributos</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_canais</item>
+        <item>@string/nav_item_produtos</item>
+        <item>@string/nav_item_atributos</item>
+    </string-array>
+
+    <string name="title_atributos">Atributos</string>
+    <string name="title_canais">Canais</string>
+    <string name="title_produtos">Produtos</string>
+    <string name="title_home">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--/Navigation -->
+
+    <string-array name="image_ids">
+        <item>@drawable/image_1</item>
+        <item>@drawable/image_2</item>
+        <item>@drawable/image_3</item>
+        <item>@drawable/image_4</item>
+        <item>@drawable/image_5</item>
+        <item>@drawable/image_6</item>
+        <item>@drawable/image_7</item>
+        <item>@drawable/image_8</item>
+        <item>@drawable/image_9</item>
+        <item>@drawable/image_9_0</item>
+        <item>@drawable/image_9_1</item>
+        <item>@drawable/image_9_2</item>
+        <item>@drawable/image_9_3</item>
+        <item>@drawable/image_9_4</item>
+        <item>@drawable/image_9_5</item>
+        <item>@drawable/image_9_6</item>
+        <item>@drawable/image_9_7</item>
+        <item>@drawable/image_9_8</item>
+        <item>@drawable/image_9_9</item>
+        <item>@drawable/image_9_9_0</item>
+    </string-array>
+
+</resources>
