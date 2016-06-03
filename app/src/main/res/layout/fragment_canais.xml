@@ -13,5 +13,28 @@
         android:layout_centerHorizontal="true"
          />
 
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/msgErro"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="45dp"
+        android:text="Produtos"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/subMsgErro"
+        android:layout_below="@id/msgErro"
+        android:layout_centerInParent="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="" />
 
 </RelativeLayout>

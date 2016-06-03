@@ -91,8 +91,5 @@
                 android:textStyle="italic"
                 android:paddingRight="@dimen/feed_item_status_pad_left_right"/>
 
-
-
-
     </LinearLayout>
 </LinearLayout>

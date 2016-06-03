@@ -96,15 +96,15 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if(id == R.id.action_search){
-            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        if(id == R.id.action_search){
+//            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -142,6 +142,9 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             case 3:
                 fragment = new AtributosFragment();
                 title = getString(R.string.title_atributos);
+                break;
+            case 4:
+                logoutUser();
                 break;
             default:
                 break;

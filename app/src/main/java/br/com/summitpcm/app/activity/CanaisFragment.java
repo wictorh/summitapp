@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -33,6 +34,7 @@ import java.util.List;
 import br.com.summitpcm.app.R;
 import br.com.summitpcm.app.adapter.CanalListAdapter;
 import br.com.summitpcm.app.helper.Listener;
+import br.com.summitpcm.app.helper.NetworkManager;
 import br.com.summitpcm.app.helper.RequestManager;
 import br.com.summitpcm.app.model.Canal;
 import br.com.summitpcm.app.config.AppConfig;
@@ -44,7 +46,10 @@ public class CanaisFragment extends Fragment {
     private List<Canal> canalList = new ArrayList<Canal>();
     private ListView listView;
     private CanalListAdapter adapter;
+    private TextView msgErro;
+    private TextView subMsgErro;
     Fragment fragment = null;
+    int retryCount =0;
     public CanaisFragment() {
         // Required empty public constructor
     }
@@ -70,6 +75,8 @@ public class CanaisFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_canais, container, false);
 
+        msgErro = (TextView) rootView.findViewById(R.id.msgErro);
+        subMsgErro = (TextView) rootView.findViewById(R.id.subMsgErro);
         listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new CanalListAdapter(getActivity(), canalList);
         listView.setAdapter(adapter);
@@ -82,19 +89,19 @@ public class CanaisFragment extends Fragment {
                 fragment = new CanalDetalhadoFragment();
                 Bundle args = new Bundle();
                 try {
-                if (fragment != null) {
-                    args.putString("CodigoCanal",codigo.getText().toString());
-                    fragment.setArguments(args);
-                    fragmentTransaction = ((MainActivity)getActivity()).getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container_body, fragment,"CanaisFragment");
-                    fragmentTransaction.addToBackStack("CanaisFragment");
-                    fragmentTransaction.commitAllowingStateLoss();
-                    getFragmentManager().executePendingTransactions();
+                    if (fragment != null) {
+                        args.putString("CodigoCanal",codigo.getText().toString());
+                        fragment.setArguments(args);
+                        fragmentTransaction = ((MainActivity)getActivity()).getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.container_body, fragment,"CanaisFragment");
+                        fragmentTransaction.addToBackStack("CanaisFragment");
+                        fragmentTransaction.commitAllowingStateLoss();
+                        getFragmentManager().executePendingTransactions();
 
-                    //getSupportActionBar().setTitle(title);
-                    ((MainActivity)getActivity()).getSupportActionBar().setSubtitle(nome.getText());
-                }
-               // Toast.makeText(getActivity(), nome.getText(), Toast.LENGTH_SHORT).show();
+                        //getSupportActionBar().setTitle(title);
+                        ((MainActivity)getActivity()).getSupportActionBar().setSubtitle(nome.getText());
+                    }
+                    // Toast.makeText(getActivity(), nome.getText(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.d(TAG, e.getMessage());
                     Toast.makeText(getActivity(), "Erro ao executar solicitação", Toast.LENGTH_SHORT).show();
@@ -106,12 +113,44 @@ public class CanaisFragment extends Fragment {
 
 
 
-if(canalList.isEmpty()){
-    pDialog = new ProgressDialog(getActivity());
-    // Showing progress dialog before making http request
-    pDialog.setMessage("Carregando...");
-    pDialog.show();
-       // Creating volley request obj
+        if(canalList.isEmpty()){
+            if(NetworkManager.getConnectivityStatus(((MainActivity)getActivity()).getApplicationContext()) != 0)
+            {
+                LoadDados();
+            }
+            else
+            {
+                msgErro.setVisibility(View.VISIBLE);
+                msgErro.setText("Sem Conexão");
+            }
+        }
+        // Inflate the layout for this fragment
+        return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hidePDialog();
+    }
+
+    public  void LoadDados(){
+        msgErro.setVisibility(View.INVISIBLE);
+        pDialog = new ProgressDialog(getActivity());
+        // Showing progress dialog before making http request
+        pDialog.setMessage("Carregando...");
+        pDialog.show();
+        // Creating volley request obj
         JsonArrayRequest movieReq = new JsonArrayRequest(AppConfig.URL_CANAIS,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -138,43 +177,38 @@ if(canalList.isEmpty()){
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
-
-                        // notifying list adapter about data changes
-                        // so that it renders the list view with updated data
+                        retryCount =0;
                         adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hidePDialog();
-
+                if (error instanceof TimeoutError) {
+                    if(retryCount <3){
+                        retryCount++;
+                        hidePDialog();
+                        LoadDados();
+                    }else{
+                        hidePDialog();
+                        msgErro.setVisibility(View.VISIBLE);
+                        msgErro.setText("Conexão Lenta");
+                        subMsgErro.setText("");
+                    }
+                }
+                else {
+                    msgErro.setVisibility(View.VISIBLE);
+                    msgErro.setText("Erro");
+                    subMsgErro.setText("Entre em contatos com os administradores do App");
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    hidePDialog();
+                }
             }
         });
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(movieReq);
-}
-        // Inflate the layout for this fragment
-        return rootView;
-    }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        hidePDialog();
     }
 
     private void hidePDialog() {

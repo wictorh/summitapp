@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -42,6 +43,7 @@ public class ProdutoEspecificacoesFragmentTab extends Fragment {
     private ProgressDialog pDialog;
     private List<EspecificacoesProduto> atributoList = new ArrayList<EspecificacoesProduto>();
     private ListView listView;
+    private TextView msg;
     private EspecificacoesProdutoListAdapter adapter;
 
     public ProdutoEspecificacoesFragmentTab() {
@@ -67,6 +69,7 @@ public class ProdutoEspecificacoesFragmentTab extends Fragment {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_produto_especificacoes_tab, container, false);
 
+        msg =  (TextView) rootView.findViewById(R.id.msgProdutoAtributos);
         listView = (ListView) rootView.findViewById(R.id.listView);
         adapter = new EspecificacoesProdutoListAdapter(getActivity(), atributoList);
         listView.setAdapter(adapter);
@@ -90,6 +93,11 @@ public class ProdutoEspecificacoesFragmentTab extends Fragment {
                             Log.d("testets", response.toString());
                             hidePDialog();
 
+                            if(response.length() == 0 )
+                                msg.setVisibility(View.VISIBLE);
+                            else
+                                msg.setVisibility(View.INVISIBLE);
+
                             for (int i = 0; i < response.length(); i++) {
                                 try {
                                     JSONObject obj = response.getJSONObject(i);
@@ -106,6 +114,7 @@ public class ProdutoEspecificacoesFragmentTab extends Fragment {
                                 }
 
                             }
+
                             adapter.notifyDataSetChanged();
                         }
                     }, new Response.ErrorListener() {

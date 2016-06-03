@@ -15,12 +15,12 @@
         android:id="@+id/imageView2"
         android:background="@drawable/logo_light"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="70dp"
        />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
@@ -66,17 +66,20 @@
 
         <!-- Link to Login Screen -->
 
-        <Button
-            android:id="@+id/btnLinkToRegisterScreen"
+        <TextView
+            android:id="@+id/msgErro"
             android:layout_width="fill_parent"
+         android:textAlignment="center"
             android:visibility="invisible"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
             android:background="@null"
-            android:text="@string/btn_link_to_register"
+            android:text="Sem conexão com internet"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
+
 
 
     </LinearLayout>

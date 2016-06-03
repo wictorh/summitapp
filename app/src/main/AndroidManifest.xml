@@ -3,6 +3,7 @@
     package="br.com.summitpcm.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="br.com.summitpcm.app.config.AppController"
@@ -19,6 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
+        <receiver
+            android:name="br.com.summitpcm.app.helper.NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

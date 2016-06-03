@@ -67,7 +67,7 @@ public class EspecificacoesProdutoListAdapter  extends BaseAdapter {
         // getting movie data for the row
         EspecificacoesProduto m = especificacoesProdutoItems.get(position);
         nome.setText(m.getDescricao());
-        tipo.setText(String.valueOf(m.getTipo()));
+        tipo.setText("Tipo : " + String.valueOf(m.getTipo()));
         valor.setText(m.getValor());
         epId.setText(String.valueOf(m.getAtributoProdutoId()));
 

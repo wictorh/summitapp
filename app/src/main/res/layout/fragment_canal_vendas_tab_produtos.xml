@@ -9,20 +9,39 @@
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
         android:elevation="5dp"
-        android:paddingBottom="3dp"
-        android:paddingTop="3dp"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:background="@color/white"
         android:layout_marginBottom="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView"
+            android:text="Descrição"
+            android:id="@+id/txtCvProdutoDescricao"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd/MM/yyyy"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:textSize="11dp"
+            android:id="@+id/txtCvProdutoData"
+            android:layout_below="@+id/txtCvProdutoDescricao"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
     <ListView
         android:layout_width="wrap_content"
@@ -31,7 +50,17 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/relativeLayout"
         android:layout_alignParentBottom="true" />
-
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/msgErro"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="45dp"
+        android:text="Produtos"
+        android:textStyle="bold"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_back_vendas"
         android:layout_width="wrap_content"
