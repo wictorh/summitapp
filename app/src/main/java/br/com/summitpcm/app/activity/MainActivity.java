@@ -44,10 +44,8 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
-        // session manager
         session = new SessionManager(getApplicationContext());
 
         if (!session.isLoggedIn()) {
@@ -56,13 +54,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         txtNome = (TextView) findViewById(R.id.nav_email);
         txtEmail = (TextView) findViewById(R.id.nav_nome_usuario);
 
-        // Fetching user details from sqlite
         HashMap<String, String> user = db.getUserDetails();
 
         String name = user.get("name");
         String email = user.get("email");
 
-        // Displaying the user details on the screen
         txtNome.setText(name);
         txtEmail.setText(email);
 
@@ -77,7 +73,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-        // display the first navigation drawer view on app launch
         displayView(0);
     }
 
@@ -91,20 +86,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        if(id == R.id.action_search){
-//            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -159,7 +141,6 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
             fragmentTransaction.commit();
 
-            // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
     }
